@@ -44,7 +44,7 @@ def aruco_detect(gray):
     #return corners , ids
     back = None
     if ids is not None:
-        rvec, tvec, _ = aruco.estimatePoseSingleMarkers(corners, 0.03, mtx, dist)
+        rvec, tvec, _ = aruco.estimatePoseSingleMarkers(corners, 0.05, mtx, dist)
         for i in range(len(ids)):
             x = tvec[i, 0, 0]
             y = tvec[i, 0, 1]

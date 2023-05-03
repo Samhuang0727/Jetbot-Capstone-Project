@@ -117,9 +117,10 @@ class AStar():
         left = 4
 
         ####################################################
-        #condition1:p1.x>p0.x
+        #condition1:p1.x > p0.x && p1.y = p0.y,p1 is new point and p0 is current point
+        #att is the direction jetbot facing to
 
-        if p_1[0] > p_0[0] and att == right: 
+        if p_1[0] > p_0[0] and p_1[1] == p_0[1] and att == right: 
             #robot.forward(0.15) # go straight
             print(1)
             time.sleep(1)
@@ -128,7 +129,7 @@ class AStar():
         else:
             planning = False
 
-        if p_1[0] > p_0[0] and att == left:  
+        if p_1[0] > p_0[0] and p_1[1] == p_0[1] and att == left:  
             #robot.set_motors(0.1, 0.2)  # uturn
             print(2)
             time.sleep(2)
@@ -137,7 +138,7 @@ class AStar():
         else:
             planning = False
 
-        if p_1[0] > p_0[0] and att == up: 
+        if p_1[0] > p_0[0] and p_1[1] == p_0[1] and att == up: 
             #robot.set_motors(0.2, 0.1)  # turn right
             print(3)
             time.sleep(1)
@@ -146,7 +147,7 @@ class AStar():
         else:
             planning = False
 
-        if p_1[0] > p_0[0] and att == down:  
+        if p_1[0] > p_0[0] and p_1[1] == p_0[1] and att == down:  
             #robot.set_motors(0.1, 0.2)  # turn left
             print(4)
             time.sleep(1)
@@ -156,58 +157,57 @@ class AStar():
             planning = False
 
         ####################################################
-        #condition2 : p1.x<p0.x
+        #condition2 : p1.y < p0.y && p1.x = p0.x
 
-        if p_1[0] < p_0[0] and att == right: 
-            #robot.set_motors(0.1, 0.2) # uturn
+        if p_1[1] < p_0[1] and p_1[0] == p_0[0] and att == left:  
+            #robot.set_motors(0.1, 0.2) # turn left
             print(5)
-            time.sleep(2)
+            time.sleep(1)
             planning = True
             pass
         else:
             planning = False
 
-        if p_1[0] < p_0[0] and att == left: 
-            #robot.forward(0.15) # go straight
+        if p_1[1] < p_0[1] and p_1[0] == p_0[0] and att == right:  
+            #robot.set_motors(0.2, 0.1)  # turn right
             print(6)
             time.sleep(1)
             planning = True
             pass
         else:
             planning = False
-        
-        if p_1[0] < p_0[0] and att == up: 
-            #robot.set_motors(0.1, 0.2) # turn left
+
+        if p_1[1] < p_0[1] and p_1[0] == p_0[0] and att == down:  
+            #robot.forward(0.15)  # go straight
             print(7)
             time.sleep(1)
             planning = True
             pass
         else:
             planning = False
-        
-        if p_1[0] < p_0[0] and att == down:  
-            #robot.set_motors(0.2, 0.1) # turn right
+
+        if p_1[1] < p_0[1] and p_1[0] == p_0[0] and att == up:  
+            #robot.set_motors(0.1, 0.2)  # uturn
             print(8)
-            time.sleep(1)
+            time.sleep(2)
             planning = True
             pass
         else:
             planning = False
 
         ####################################################
-        #condition3 : p1.y>p0.y
-
-        if p_1[1] > p_0[1] and att == left:  
-            #robot.set_motors(0.2, 0.1)  # turn right
+        #condition3: p1.x > p0.x && p1.y < p0.y
+        if p_1[1] < p_0[1] and p_1[0] > p_0[0] and att == left:  
+            #robot.set_motors(0.1, 0.2) # turn left 135deg
             print(9)
-            time.sleep(1)
+            time.sleep(2)
             planning = True
             pass
         else:
             planning = False
 
-        if p_1[1] > p_0[1] and att == right: 
-            #robot.set_motors(0.1, 0.2)  # turn left
+        if p_1[1] < p_0[1] and p_1[0] > p_0[0] and att == right:  
+            #robot.set_motors(0.2, 0.1)  # turn right 45deg
             print(10)
             time.sleep(1)
             planning = True
@@ -215,64 +215,24 @@ class AStar():
         else:
             planning = False
 
-        if p_1[1] > p_0[1] and att == down:  
-            #robot.set_motors(0.1, 0.2)  # uturn
+        if p_1[1] < p_0[1] and p_1[0] > p_0[0] and att == down:  
+            #robot.set_motors(0.1,0.2)  # turn left 45deg
             print(11)
-            time.sleep(2)
+            time.sleep(1)
             planning = True
             pass
         else:
             planning = False
 
-        if p_1[1] > p_0[1] and att == up:  
-            #robot.forward(0.15)  # go straight
+        if p_1[1] < p_0[1] and p_1[0] > p_0[0] and att == up:  
+            #robot.set_motors(0.2, 0.1)  # turn right 135deg
             print(12)
-            time.sleep(1)
-            planning = True
-            pass
-        else:
-            planning = False
-
-        ####################################################
-        #condition4 : p1.y < p0.y
-
-        if p_1[1] < p_0[1] and att == left:  
-            #robot.set_motors(0.1, 0.2) # turn left
-            print(13)
-            time.sleep(1)
-            planning = True
-            pass
-        else:
-            planning = False
-
-        if p_1[1] < p_0[1] and att == right:  
-            #robot.set_motors(0.2, 0.1)  # turn right
-            print(14)
-            time.sleep(1)
-            planning = True
-            pass
-        else:
-            planning = False
-
-        if p_1[1] < p_0[1] and att == down:  
-            #robot.forward(0.15)  # go straight
-            print(15)
-            time.sleep(1)
-            planning = True
-            pass
-        else:
-            planning = False
-
-        if p_1[1] < p_0[1] and att == up:  
-            #robot.set_motors(0.1, 0.2)  # uturn
-            print(16)
             time.sleep(2)
             planning = True
             pass
         else:
             planning = False
 
-        ####################################################
 
         return planning
 

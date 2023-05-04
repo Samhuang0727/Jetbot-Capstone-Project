@@ -3,7 +3,7 @@ import cubic_spline as cubic_spline
 import cv2
 import numpy as np
 import timeit
-#import robot as Robot
+#from robot import Robot
 
 #robot = Robot()
 smooth = True

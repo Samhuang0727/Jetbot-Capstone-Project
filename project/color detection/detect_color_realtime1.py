@@ -64,22 +64,30 @@ def show_camera():
             cv2.imshow('frame', frame)
 
             hsvFrame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-            green_lower = np.array([25, 52, 72], np.uint8)
+            green_lower = np.array([25, 52, 150], np.uint8)
             green_upper = np.array([102, 255, 255], np.uint8)
             green_mask = cv2.inRange(hsvFrame, green_lower, green_upper)
             kernel = np.ones((5, 5), "uint8")
             green_mask = cv2.dilate(green_mask, kernel)
             res_green = cv2.bitwise_and(frame, frame, mask = green_mask)
             contours, hierarchy = cv2.findContours(green_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+            leave = False
             
-            print(contours)
+            #print(contours)
             for pic, contour in enumerate(contours):
                 area = cv2.contourArea(contour)
+                print(area)
+                if(area > 500): #detected green light
+                    x, y, w, h = cv2.boundingRect(contour)
+                    cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+                    leave = True
+                    break
+            if leave == True:
+                robot.set_motors(0.25,0.17)
+                time.sleep(2)
+                break
             
-            print(area)
-            if(area > 300):
-                x, y, w, h = cv2.boundingRect(contours)
-                cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            
 
             # if area is not None:
             #     #robot.set_motors(0.2,0.2)

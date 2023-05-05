@@ -42,12 +42,12 @@ def stop_line_detect(frame):
         mask = mask[300:480, :]
         
         kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (320, 4))
-        mask = cv2.dilate(mask, None, iterations=2)
+        mask = cv2.dilate(mask,None, iterations=2)
 #         cv2.imshow('mask', mask)
         mask = cv2.erode(mask, kernel, iterations=1)
         
         num = np.transpose(np.nonzero(mask))
-        if len(num) > 800:
+        if len(num) > 700:
             detect = True
         else:
             detect = False
@@ -73,7 +73,7 @@ def show_camera():
                 print('stop!!!!!!!')
                 break
             else:
-                robot.set_motors(0.155,0.153)
+                robot.set_motors(0.155,0.13)
                 print('go straight....')
         out.release()
         camera.release()

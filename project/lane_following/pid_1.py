@@ -43,8 +43,8 @@ def ctrl_mixer(r):
 
 
 def motor_ctrl(B1,B2):
-    left_V=(B2+1.35)/50.3 
-    right_V=(B1+1.5)/50.3 
+    left_V=(B2+4)/50.3 
+    right_V=(B1+3.5)/50.3 
     print(left_V,right_V)
     robot.set_motors(left_V, right_V)
 

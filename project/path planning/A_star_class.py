@@ -214,8 +214,8 @@ class AStar():
             planning = False
 
         if p_1[1] < p_0[1] and p_1[0] > p_0[0] and att == right:  
-            robot.set_motors(0.155,0.153) # go straight
-            time.sleep(3)
+            robot.set_motors(0.155,0.13) # go straight
+            time.sleep(4)
             robot.set_motors(0, 0)
             print('go straight....7')
             planning = True
@@ -224,8 +224,8 @@ class AStar():
             planning = False
 
         if p_1[1] < p_0[1] and p_1[0] > p_0[0] and att == down:  
-            robot.set_motors(0.155,0.153) # go straight
-            time.sleep(3)
+            robot.set_motors(0.155,0.13) # go straight
+            time.sleep(4)
             robot.set_motors(0, 0)
             print('go straight....8')
             planning = True

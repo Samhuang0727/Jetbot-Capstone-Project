@@ -17,7 +17,7 @@ coordinate = np.array([[20,230], [35,550], [32,550], [250,530], [25,290], [290,5
 parameter = np.transpose(np.vstack([id, face]))
 parameter = np.hstack([parameter, coordinate])
 print(parameter)
-np.savez('../aruco_param.npz', parameter = parameter)
+np.savez('aruco_param.npz', parameter = parameter)
 ep = np.load('aruco_param.npz')
 ep = ep['parameter']
 print(ep)

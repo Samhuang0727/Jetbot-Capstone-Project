@@ -18,7 +18,8 @@ while 1:
     m = 1-cv2.dilate(1-m, np.ones((20, 20)))
     img = img.astype(float)/255.
 
-    file = np.load('aruco_param.npz')
+    filepath = '/home/jetbot/Capstone-Project/project/path planning/aruco_marker/aruco_param.npz'
+    file = np.load(filepath)
     parameter = file['parameter']
     id = int(input())
     face = parameter[:, 1]

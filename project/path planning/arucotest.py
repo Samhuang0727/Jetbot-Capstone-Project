@@ -3,7 +3,9 @@ import numpy as np
 import cv2.aruco as aruco
 from math import sqrt, pow, atan, acos, pi, atan2
 from numpy.linalg import inv, norm
-with np.load('calibration.npz') as file:
+
+path =  '/home/jetbot/Capstone-Project/project/lane_following/calibration.npz'
+with np.load(path) as file:
     mtx, dist, rvecs, tvecs = [file[i] for i in ('mtx', 'dist', 'rvecs', 'tvecs')]
 
 def gstreamer_pipeline(
@@ -72,8 +74,8 @@ def aruco_detect(gray):
 def show_camera():
     print(gstreamer_pipeline(flip_method=0))
     camera = cv2.VideoCapture(gstreamer_pipeline(flip_method=0), cv2.CAP_GSTREAMER)
-    fourcc = cv2.VideoWriter_fourcc(*'XVID')
-    out = cv2.VideoWriter('demo.avi', fourcc, 30.0, (640, 480))
+    #fourcc = cv2.VideoWriter_fourcc(*'XVID')
+    #out = cv2.VideoWriter('demo.avi', fourcc, 30.0, (640, 480))
     print(camera.isOpened())
     if camera.isOpened():
         window_handle = cv2.namedWindow("frame", cv2.WINDOW_AUTOSIZE)
@@ -85,7 +87,7 @@ def show_camera():
             gray = preprocess(frame)
             back = aruco_detect(gray)
             print(back)
-        out.release()
+        #out.release()
         camera.release()
         cv2.destroyAllWindows()
     else:

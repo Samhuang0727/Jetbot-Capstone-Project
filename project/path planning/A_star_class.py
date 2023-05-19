@@ -121,7 +121,7 @@ class AStar():
         #att is the direction jetbot facing to
 
         if p_1[0] > p_0[0] and p_1[1] == p_0[1] and att == right: 
-            robot.set_motors(0.155,0.153) # go straight
+            robot.set_motors(0.2,0.192) # go straight
             time.sleep(3)
             robot.set_motors(0, 0)
             print('go straight....1')
@@ -150,8 +150,8 @@ class AStar():
         #     planning = False
 
         if p_1[0] > p_0[0] and p_1[1] == p_0[1] and att == down:  
-            robot.set_motors(0.11,0.2) #turn left
-            time.sleep(2.7)
+            robot.set_motors(0.17,0.24) #turn left
+            time.sleep(3.5)
             robot.set_motors(0, 0)
             print('turning left....2')
             planning = True
@@ -163,8 +163,8 @@ class AStar():
         #condition2 : p1.y < p0.y && p1.x = p0.x
 
         if p_1[1] < p_0[1] and p_1[0] == p_0[0] and att == left:  
-            robot.set_motors(0.16,0.2) #turn left
-            time.sleep(2.7)
+            robot.set_motors(0.17,0.24) #turn left
+            time.sleep(3.5)
             robot.set_motors(0, 0)
             print('turning left....3')
             planning = True
@@ -173,8 +173,12 @@ class AStar():
             planning = False
 
         if p_1[1] < p_0[1] and p_1[0] == p_0[0] and att == right:  
-            robot.set_motors(0.23,0.13) #turn right
-            time.sleep(2.7)
+            robot.set_motors(0.19,0.24) #turn right
+            time.sleep(0.5)
+            robot.set_motors(0.3,0.13)
+            time.sleep(1.7)
+            robot.set_motors(0.19,0.26)
+            time.sleep(0.7)
             robot.set_motors(0, 0)
             print('turning right....4')
             planning = True
@@ -183,7 +187,7 @@ class AStar():
             planning = False
 
         if p_1[1] < p_0[1] and p_1[0] == p_0[0] and att == down:  
-            robot.set_motors(0.155,0.153) # go straight
+            robot.set_motors(0.2,0.192) # go straight
             time.sleep(3)
             robot.set_motors(0, 0)
             print('go straight....5')
@@ -204,8 +208,8 @@ class AStar():
         ####################################################
         #condition3: p1.x > p0.x && p1.y < p0.y
         if p_1[1] < p_0[1] and p_1[0] > p_0[0] and att == left:  
-            robot.set_motors(0.16,0.2) #turn left
-            time.sleep(2.7)
+            robot.set_motors(0.17,0.24) #turn left
+            time.sleep(3.5)
             robot.set_motors(0, 0)
             print('turning left....6')
             planning = True
@@ -214,17 +218,21 @@ class AStar():
             planning = False
 
         if p_1[1] < p_0[1] and p_1[0] > p_0[0] and att == right:  
-            robot.set_motors(0.155,0.13) # go straight
-            time.sleep(4)
+            robot.set_motors(0.19,0.24) #turn right
+            time.sleep(0.5)
+            robot.set_motors(0.3,0.13)
+            time.sleep(1.7)
+            robot.set_motors(0.19,0.26)
+            time.sleep(0.7)
             robot.set_motors(0, 0)
-            print('go straight....7')
+            print('turn right....7')
             planning = True
             pass
         else:
             planning = False
 
         if p_1[1] < p_0[1] and p_1[0] > p_0[0] and att == down:  
-            robot.set_motors(0.155,0.13) # go straight
+            robot.set_motors(0.2,0.192) # go straight
             time.sleep(4)
             robot.set_motors(0, 0)
             print('go straight....8')

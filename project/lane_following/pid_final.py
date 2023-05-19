@@ -240,8 +240,8 @@ def gstreamer_pipeline(
 def show_camera():
     print(gstreamer_pipeline(flip_method=0))
     cap = cv2.VideoCapture(gstreamer_pipeline(flip_method=0), cv2.CAP_GSTREAMER)
-    fourcc = cv2.VideoWriter_fourcc(*'XVID')
-    out = cv2.VideoWriter('demo_6.avi', fourcc, 30.0, (640, 480))
+    #fourcc = cv2.VideoWriter_fourcc(*'XVID')
+    #out = cv2.VideoWriter('demo_6.avi', fourcc, 30.0, (640, 480))
     if cap.isOpened():
         # undistortion matrix
         newCameraMatrix, roi = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeff, (640, 480), 1, (640, 480))
@@ -270,7 +270,7 @@ def show_camera():
           
             #cv2.putText(loc_line, str(angle), (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
             cv2.imshow('frame', loc_line)
-            out.write(loc_line)
+            #out.write(loc_line)
             # setup PID
             attitude_ctrl = PID.pid(1.5,0,0.2)
             
@@ -297,7 +297,7 @@ def show_camera():
             # Stop the program on the ESC key
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
-        out.release()
+        #out.release()
         cap.release()
         cv2.destroyAllWindows()
     else:

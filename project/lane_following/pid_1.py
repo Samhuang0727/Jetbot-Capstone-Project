@@ -33,7 +33,7 @@ def imgpt2wrd(imgcoor):
 
 def ctrl_mixer(r):
     #Vx=0.05
-    Ainv=np.array([[0.5,2.0834],[0.5,-2.0834]])
+    Ainv=np.array([[0.5,4],[0.5,-4]])
     U=np.array([450,r])
     B=np.dot(Ainv,U.T)*3.14/180
     RPSR=B[1]
@@ -43,8 +43,8 @@ def ctrl_mixer(r):
 
 
 def motor_ctrl(B1,B2):
-    left_V=(B2+4)/50.3 
-    right_V=(B1+3.5)/50.3 
+    left_V=(B2+6)/50.3 
+    right_V=(B1+5.8)/50.3 
     print(left_V,right_V)
     robot.set_motors(left_V, right_V)
 

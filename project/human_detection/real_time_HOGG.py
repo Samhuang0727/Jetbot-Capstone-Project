@@ -52,6 +52,7 @@ def show_camera():
     leave = False
     if cap.isOpened():
         window_handle = cv2.namedWindow(window_title, cv2.WINDOW_AUTOSIZE)
+        robot.set_motors(0.18,0.15)
         # initialize the HOG descriptor/person detector
         hog = cv2.HOGDescriptor()
         hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
@@ -76,7 +77,7 @@ def show_camera():
                 # display the detected boxes in the colour picture
                 cv2.rectangle(frame, (xA, yA), (xB, yB),(0, 255, 0), 2)
                 print(abs(xA-xB))
-                if  abs(xA-xB) > 75:
+                if  abs(xA-xB) >= 65:
                     leave = True
                     break
             if leave == True:
@@ -92,13 +93,16 @@ def show_camera():
         # finally, close the window
         cv2.destroyAllWindows()
 
-        if leave == True:    
-            robot.set_motors(0.16,0.25)
+        if leave == True: 
+            robot.set_motors(0,0)
+            time.sleep(0.8)   
+            robot.set_motors(0.12,0.27)
             time.sleep(1)
             robot.stop()
-            robot.set_motors(0.3,0.1)
-            time.sleep(1.7)
-            robot.set_motors(0,0)
+            robot.set_motors(0.35,0.12)
+            time.sleep(2.4)
+            robot.set_motors(-0.13,0.22)
+            time.sleep(1.3)
     else:
         print("Error: Unable to open camera")
 

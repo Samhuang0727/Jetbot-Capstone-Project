@@ -27,6 +27,6 @@ while 1:
         print('turning right....')
     else: #go straight
         robot.set_motors(0.2,0.192)
-        time.sleep(83)
+        time.sleep(3)
         robot.set_motors(0, 0)
         print('go straight....')

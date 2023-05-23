@@ -32,9 +32,16 @@ class FSM(object):
         r.set_motors(0, 0)
         time.sleep(1)
 
+    def stopline_jetbot(self):
+        r = self.robot
+        r.set_motors(0.2, 0.192)
+        time.sleep(0.5)
+        r.set_motors(0,0)
+        time.sleep(1)
+        print('stopline_stop')
+
 def show_state(fsm):
     print('current state: ', fsm.state)
-
 
 robot = Robot()
 camera = cv2.VideoCapture(detection.gstreamer_pipeline(flip_method=0), cv2.CAP_GSTREAMER)
@@ -157,23 +164,21 @@ while cv2.getWindowProperty("frame", 0) >= 0:
         print('-----------------------')
         print('start open loop motion....')
         if dir == 'left':
-            robot.set_motors(0.11,0.2)
-            time.sleep(2.7)
-            robot.set_motors(0.101,0.108)
-            time.sleep(2)
+            robot.set_motors(0.17,0.24)
+            time.sleep(3.5)
             robot.set_motors(0, 0)
             print('turning left....')
         elif dir == 'right':
-            robot.set_motors(0.154,0.15)
-            time.sleep(0.15)
-            robot.set_motors(0.215, 0.1)
-            time.sleep(1.5)
-            robot.set_motors(0.101,0.108)
-            time.sleep(2)
+            robot.set_motors(0.19,0.24)
+            time.sleep(0.5)
+            robot.set_motors(0.3,0.13)
+            time.sleep(1.7)
+            robot.set_motors(0.19,0.26)
+            time.sleep(0.7)
             robot.set_motors(0, 0)
             print('turning right....')
         else:
-            robot.set_motors(0.125,0.14)
+            robot.set_motors(0.2,0.192)
             time.sleep(3)
             robot.set_motors(0, 0)
             print('go straight....')
@@ -210,7 +215,7 @@ while cv2.getWindowProperty("frame", 0) >= 0:
 #                     print('angle = ', angle)
                 print('angle = ', angle)
                 # setup PID
-                attitude_ctrl = PID.pid(0.89, 0, 0)
+                attitude_ctrl = PID.pid(1.5, 0, 0.2)
                 # attitude control
                 attitude_ctrl.cur = - angle
                 # attitude_ctrl.desire = 0
@@ -218,9 +223,9 @@ while cv2.getWindowProperty("frame", 0) >= 0:
                 r_mcd = attitude_ctrl.output()
                 RPSR, RPSL = Pv.ctrl_mixer(r_mcd)
                 left_V, right_V = Pv.motor_ctrl(RPSR, RPSL)
-                print(left_V)
-                print(right_V)
-                robot.set_motors(left_V+0.01, right_V+0.01)
+                # print(left_V)
+                # print(right_V)
+                # robot.set_motors(left_V+0.01, right_V+0.01)
 #     cv2.imshow('frame', frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break

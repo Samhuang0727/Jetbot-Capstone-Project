@@ -113,7 +113,7 @@ class detection:
         lower = np.array([51, 107, 139])
         upper = np.array([255, 255, 255])
         mask = cv2.inRange(hsv, lower, upper)
-        mask = mask[300:480, :]
+        mask = mask[450:480, :]
         
         kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (320, 4))
         mask = cv2.dilate(mask, None, iterations=2)
@@ -156,29 +156,33 @@ class detection:
         return green
     
     def avoid_people(self, robot):
-        robot.set_motors(-0.1,0.15)
-        time.sleep(0.65)
-        robot.set_motors(0.2,0.12)
-        time.sleep(1.5)
-        robot.set_motors(-0.1,0.15)
-        time.sleep(0.65)
         robot.set_motors(0,0)
+        time.sleep(0.8)   
+        robot.set_motors(0.12,0.27)
+        time.sleep(1)
+        robot.stop()
+        robot.set_motors(0.35,0.12)
+        time.sleep(2.4)
+        robot.set_motors(-0.13,0.22)
+        time.sleep(1.3)
         
     def turn_left(self, robot):
-        robot.set_motors(0.16,0.2)
-        time.sleep(2.7)
-        #robot.set_motors(0.101,0.108)
-        #time.sleep(2)
+        robot.set_motors(0.17,0.24)
+        time.sleep(3.5)
         robot.set_motors(0, 0)
 
         
     def turn_right(self, robot):
-        robot.set_motors(0.23,0.13)
-        time.sleep(2)
+        robot.set_motors(0.19,0.24)
+        time.sleep(0.5)
+        robot.set_motors(0.3,0.13)
+        time.sleep(1.7)
+        robot.set_motors(0.19,0.26)
+        time.sleep(0.7)
         robot.set_motors(0, 0)
         print('turning right....')
         
     def go_straight(self, robot):
-        robot.set_motors(0.155,0.13)
+        robot.set_motors(0.2,0.192)
         time.sleep(3)
         robot.set_motors(0, 0)

@@ -138,8 +138,13 @@ class detection:
         gray = cv2.resize(gray, (320, 240), cv2.INTER_NEAREST)
         boxes, _ = hog.detectMultiScale(gray, winStride=(8, 8))
         boxes = np.array([[x, y, x + w, y + h] for (x, y, w, h) in boxes])
-        if len(boxes) != 0:
-            people = True
+        for (xA, yA, xB, yB) in boxes:
+            # display the detected boxes in the colour picture
+            #cv2.rectangle(frame, (xA, yA), (xB, yB),(0, 255, 0), 2)
+            print(abs(xA-xB))
+            if  abs(xA-xB) >= 65:
+                people = True
+                break     
         return people
 
     def traffic_light_detect(self):

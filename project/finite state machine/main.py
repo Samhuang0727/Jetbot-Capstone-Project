@@ -5,12 +5,22 @@ import numpy as np
 from function import detection
 from lane_detect import lane
 from A_star_class import AStar
-import PID_v2_1 as Pv
-import PID_v2_2 as PID
+import pid_1 as Pv
+import pid_2 as PID
 import cubic_spline
 import timeit
 from robot import Robot
 import random
+from numpy.linalg import inv, norm
+from math import acos, pi, atan
+import yaml
+
+with open('calibration.yaml', 'r') as f:
+    data = yaml.load(f, Loader=yaml.CLoader)
+    cameraMatrix = data['camera_matrix']
+    dist = data['dist_coeff']
+    camera_matrix = np.array(cameraMatrix)
+    dist_coeff = np.array(dist)
 
 class FSM(object):
     # define states
@@ -59,6 +69,13 @@ detect_people = None
 people = 0
 traffic_time = 0
 window_handle = cv2.namedWindow("frame", cv2.WINDOW_AUTOSIZE)
+#variables for lane following
+newCameraMatrix, roi = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeff, (640, 480), 1, (640, 480))
+roi_lane = np.array([[0, 480], [640, 480], [640, 250], [0, 250]])
+dst_pts = np.float32([[0, 400], [400, 400], [400, 0], [0, 0]])
+M = cv2.getPerspectiveTransform(np.float32(roi_lane), dst_pts)
+Minv = inv(M)
+
 while cv2.getWindowProperty("frame", 0) >= 0:
     ret, frame = camera.read()
     d = detection(frame, file)
@@ -204,29 +221,29 @@ while cv2.getWindowProperty("frame", 0) >= 0:
         else:
             # lane tracking
             l = lane(frame)
-            roi_image, mask = l.preprocess()
-            angle, start, end = l.lane_calculate(mask, roi_image)
-            if angle is not None:
-#                 if angle > 5:
-#                     angle = 3
-#                     print('angle = ', angle)
-#                 elif angle < -5:
-#                     angle = -2
-#                     print('angle = ', angle)
-                print('angle = ', angle)
-                # setup PID
-                attitude_ctrl = PID.pid(1.5, 0, 0.2)
-                # attitude control
-                attitude_ctrl.cur = - angle
-                # attitude_ctrl.desire = 0
-                attitude_ctrl.cal_err()
-                r_mcd = attitude_ctrl.output()
-                RPSR, RPSL = Pv.ctrl_mixer(r_mcd)
-                left_V, right_V = Pv.motor_ctrl(RPSR, RPSL)
-                # print(left_V)
-                # print(right_V)
-                # robot.set_motors(left_V+0.01, right_V+0.01)
-#     cv2.imshow('frame', frame)
+            dst = cv2.undistort(frame, camera_matrix, dist_coeff, None, newCameraMatrix)
+            x, y, w, h = roi
+            dst = dst[y:y + h, x:x + w]
+            dst = cv2.resize(dst, (640, 480), interpolation=cv2.INTER_NEAREST)
+            perspective_img = cv2.warpPerspective(dst, M, (400, 400))
+            pp_img = l.preprocess(perspective_img)
+            loc_mid, end_mid = l.find_line(pp_img)
+            p_loc, p_end = l.back_perspective(Minv, loc_mid, end_mid)
+            loc_line, angle = l.detect_angle(p_loc, p_end, frame)
+
+            if angle > 0:
+                angle = 90 - angle
+            else:
+                angle = -90 - angle
+            
+            attitude_ctrl = PID.pid(1.5,0,0.2)
+            # attitude control
+            attitude_ctrl.cur = angle
+            # attitude_ctrl.desire = 0
+            attitude_ctrl.cal_err()
+            r_mcd = attitude_ctrl.output()
+            RPSR, RPSL = Pv.ctrl_mixer(r_mcd)
+            Pv.motor_ctrl(RPSR,RPSL)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 camera.release()

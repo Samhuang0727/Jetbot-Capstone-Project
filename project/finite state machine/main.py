@@ -3,11 +3,16 @@ import time
 import cv2
 import numpy as np
 from function import detection
-from lane_detect import lane
-from A_star_class import AStar
-import pid_1 as Pv
-import pid_2 as PID
-import cubic_spline
+from lane_following import lane
+from path_planning import cubic_spline
+from path_planning import AStar
+from lane_following import pid_1 as Pv
+from lane_following import pid_2 as PID
+#from A_star_class import AStar
+#from lane_detect import lane
+#import pid_1 as Pv
+#import pid_2 as PID
+#import cubic_spline
 import timeit
 from robot import Robot
 import random
@@ -32,7 +37,7 @@ class FSM(object):
         self.machine.add_transition(trigger='find_path', source='path_planning', dest='traffic_light', before='stop_jetbot')
         self.machine.add_transition(trigger='green_light', source='traffic_light', dest='openloop_motion', before='stop_jetbot')
         self.machine.add_transition(trigger='pass_intersection', source='openloop_motion', dest='lane_detection')
-        self.machine.add_transition(trigger='stop_line', source='lane_detection', dest='path_planning', after='stop_jetbot')
+        self.machine.add_transition(trigger='stop_line', source='lane_detection', dest='path_planning', after='stopline_jetbot')
         self.machine.add_transition(trigger='detect_people', source='*', dest='avoid_people')
         self.machine.add_transition(trigger='avoid_success', source='avoid_people', dest='lane_detection', after='stop_jetbot')
         

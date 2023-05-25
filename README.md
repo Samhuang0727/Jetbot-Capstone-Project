@@ -21,3 +21,9 @@ Environment required:
 - OpenCV 4
 - Ubuntu 18.04
 - Python 3
+
+## Traffic Light Detection
+
+Using HSV to determine the color of traffic lights.
+
+## Human Detection and Avoidance

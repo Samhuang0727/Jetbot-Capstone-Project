@@ -22,6 +22,14 @@ Environment required:
 - Ubuntu 18.04
 - Python 3
 
+## Lane Following
+
+Using the window sliding method to detect the lane lines and applying PID control parameters to ensure the vehicle stays within the lane.
+
+### Camera Calibration
+
+Firstly, we need to use 'calibration.py' to perform camera calibration and obtain parameters such as ret, mtx, dist, rvecs, tvecs, store there parameters in 'calibration.yaml'.
+
 ## Traffic Light Detection
 
 Using HSV to determine the color of traffic lights.
@@ -33,10 +41,6 @@ Using HOG to detect the human body and draw a bounding box on the screen to allo
 ## Path Planning
 
 After recognizing the AruCO marker, determine the current relative position of the car on the map and use the A star algorithm to calculate the shortest path to the destination.
-
-## Lane Following
-
-Using the window sliding method to detect the lane lines and applying PID control parameters to ensure the vehicle stays within the lane.
 
 ## Stopline Recognition
 

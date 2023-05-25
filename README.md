@@ -1,5 +1,16 @@
-# Capstone-Project
+# Capstone Project: Jetbot
 
 ## Overview
 
-Jetbot
+Our objective is to build a self-driving car system, with 5 features including
+
+1. traffic light detection
+2. huamn detection3.
+3. lane following
+4. path planning
+5. stopline detection
+
+Environment required:
+*OpenCV 4
+*Ubuntu 18.04
+\*Python 3

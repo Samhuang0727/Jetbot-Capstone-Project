@@ -1,4 +1,4 @@
-# Capstone Project: Jetbot
+# Capstone Project - Jetbot
 
 ## Overview
 

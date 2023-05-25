@@ -4,11 +4,11 @@
 
 This is a project developed from the Aerospace Engineering Practice Course of the Department of Aeronautic and Astronautic Engineering at National Cheng Kung University. Our goal is to build a self-driving car, which includes applications such as:
 
-**- traffic light detection**  
-**- huamn detection**  
-**- lane following**  
-**- path planning**  
-**- stopline detection**
+- **traffic light detection**
+- **huamn detection**
+- **lane following**
+- **path planning**
+- **stopline detection**
 
 Environment required:
 

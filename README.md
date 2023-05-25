@@ -6,8 +6,14 @@ This is a project developed from the Aerospace Engineering Practice Course of th
 
 - **traffic light detection**
 - **huamn detection**
+  - HOG
 - **lane following**
+  - sliding windows method
+  - camera calibration
+  - PID control
 - **path planning**
+  - Astar
+  - AruCo marker detection
 - **stopline detection**
 
 Environment required:

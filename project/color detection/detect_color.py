@@ -65,7 +65,7 @@ def show_camera():
 
             frame = frame1
             hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-            Green_lower_bound = np.array([54, 20, 20])
+            Green_lower_bound = np.array([54, 20, 200])
             Green_upper_bound = np.array([85, 255, 255])
             Gmask = cv2.inRange(hsv, Green_lower_bound, Green_upper_bound)
             green_circles = cv2.HoughCircles(Gmask, cv2.HOUGH_GRADIENT, 1, 60, param1=50, param2=10, minRadius=8, maxRadius=14)

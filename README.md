@@ -28,7 +28,7 @@ Using the window sliding method to detect the lane lines and applying PID contro
 
 ### Camera Calibration
 
-Firstly, we need to use `calibration.py` to perform camera calibration and obtain parameters such as ret, mtx, dist, rvecs, tvecs, store there parameters in `calibration.yaml`.
+Firstly, we need to use `calibration.py` to perform camera calibration, obtain parameters such as ret, mtx, dist, rvecs, tvecs and store these parameters in `calibration.yaml`.
 
 ## Traffic Light Detection
 

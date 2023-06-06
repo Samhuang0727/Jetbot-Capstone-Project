@@ -3,7 +3,7 @@ import numpy as np
 import cv2.aruco as aruco
 from math import sqrt, pow, atan, acos, pi, atan2
 from numpy.linalg import inv, norm
-from jetbot import Robot
+from robot import Robot
 import time
 # file = np.load('calibration.npz')
 
@@ -106,22 +106,23 @@ class detection:
 #         distance = np.round(distance, 1)
         return back
 
-    def stop_line_detect(self, threshold):
-        frame = self.original_frame
+    def stop_line_detect(self, frame, threshold):
         blur = cv2.GaussianBlur(frame, (5, 5), 0)
         hsv = cv2.cvtColor(blur, cv2.COLOR_BGR2HSV)
         lower = np.array([51, 107, 139])
         upper = np.array([255, 255, 255])
         mask = cv2.inRange(hsv, lower, upper)
-        mask = mask[450:480, :]
+        mask = mask[200:350, :]
         
         kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (320, 4))
         mask = cv2.dilate(mask, None, iterations=2)
 #         cv2.imshow('mask', mask)
-        mask = cv2.erode(mask, kernel, iterations=1)
+        mask = cv2.erode(mask, None, iterations=1)
         
         num = np.transpose(np.nonzero(mask))
         if len(num) > threshold:
+            print('length:',len(num))
+            #print('im here!!!!!!!!!!!!!')
             detect = True
         else:
             detect = False
@@ -150,7 +151,7 @@ class detection:
     def traffic_light_detect(self):
         frame = self.undis_frame
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-        Green_lower_bound = np.array([54, 20, 20])
+        Green_lower_bound = np.array([54, 20, 200])
         Green_upper_bound = np.array([85, 255, 255])
         Gmask = cv2.inRange(hsv, Green_lower_bound, Green_upper_bound)
         green_circles = cv2.HoughCircles(Gmask, cv2.HOUGH_GRADIENT, 1, 60, param1=50, param2=10, minRadius=8, maxRadius=14)
@@ -162,14 +163,33 @@ class detection:
     
     def avoid_people(self, robot):
         robot.set_motors(0,0)
-        time.sleep(0.8)   
-        robot.set_motors(0.12,0.27)
-        time.sleep(1)
-        robot.stop()
-        robot.set_motors(0.35,0.12)
-        time.sleep(2.4)
-        robot.set_motors(-0.13,0.22)
-        time.sleep(1.3)
+        time.sleep(0.5)
+        robot.set_motors(-0.22,0.2)
+        time.sleep(0.45)
+        robot.set_motors(0,0)
+        time.sleep(0.5)
+        robot.set_motors(0.28,0.25)
+        time.sleep(0.5)
+        robot.set_motors(0,0)
+        time.sleep(0.5)
+        robot.set_motors(0.2,-0.22)
+        time.sleep(0.465)
+        robot.set_motors(0,0)
+        time.sleep(0.5)
+        robot.set_motors(0.273,0.25)
+        time.sleep(1.2)
+        robot.set_motors(0,0)
+        time.sleep(0.5)
+        robot.set_motors(0.2,-0.22)
+        time.sleep(0.53)
+        robot.set_motors(0,0)
+        time.sleep(0.5)
+        robot.set_motors(0.265,0.25)
+        time.sleep(0.53)
+        robot.set_motors(0,0)
+        time.sleep(0.5)
+        robot.set_motors(-0.22,0.2)
+        time.sleep(0.44)
         
     def turn_left(self, robot):
         robot.set_motors(0.17,0.24)
@@ -189,5 +209,5 @@ class detection:
         
     def go_straight(self, robot):
         robot.set_motors(0.2,0.192)
-        time.sleep(3)
+        time.sleep(5)
         robot.set_motors(0, 0)

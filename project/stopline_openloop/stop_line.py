@@ -44,9 +44,10 @@ def stop_line_detect(frame):
         kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (320, 4))
         mask = cv2.dilate(mask,None, iterations=2)
 #         cv2.imshow('mask', mask)
-        mask = cv2.erode(mask, kernel, iterations=1)
+        mask = cv2.erode(mask, None, iterations=1)
         
         num = np.transpose(np.nonzero(mask))
+        print(len(num))
         if len(num) > 800:
             detect = True
         else:
@@ -57,6 +58,7 @@ def stop_line_detect(frame):
 def show_camera():
     print(gstreamer_pipeline(flip_method=0))
     camera = cv2.VideoCapture(gstreamer_pipeline(flip_method=0), cv2.CAP_GSTREAMER)
+  
     #fourcc = cv2.VideoWriter_fourcc(*'XVID')
     #out = cv2.VideoWriter('demo.avi', fourcc, 30.0, (640, 480))
     print(camera.isOpened())
@@ -70,13 +72,14 @@ def show_camera():
             detect = stop_line_detect(frame)
             if detect == True:
                 robot.set_motors(0.2, 0.192)
-                time.sleep(0.5)
+                time.sleep(0.6)
                 robot.set_motors(0,0)
                 print('stop!!!!!!!')
                 break
             else:
                 robot.set_motors(0.2,0.192)
                 print('go straight....')
+                
         out.release()
         camera.release()
         cv2.destroyAllWindows()

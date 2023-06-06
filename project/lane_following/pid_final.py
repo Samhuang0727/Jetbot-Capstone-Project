@@ -272,7 +272,7 @@ def show_camera():
             cv2.imshow('frame', loc_line)
             #out.write(loc_line)
             # setup PID
-            attitude_ctrl = PID.pid(1.5,0,0.2)
+            attitude_ctrl = PID.pid(0.9,0,0.2)
             
             # obtain state
             #P_end_i = np.array([xc,yc])

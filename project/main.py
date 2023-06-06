@@ -4,16 +4,16 @@ import cv2
 import numpy as np
 from function import detection
 
-from lane_following import lane
+from lane_following.lane_detect import lane
 from path_planning import cubic_spline
-from path_planning import AStar
+from path_planning.A_star_class import AStar
 from lane_following import pid_1 as Pv
 from lane_following import pid_2 as PID
-#from A_star_class import AStar
-#from lane_detect import lane
-#import pid_1 as Pv
-#import pid_2 as PID
-#import cubic_spline
+# from A_star_class import AStar
+# from lane_detect import lane
+# import pid_1 as Pv
+# import pid_2 as PID
+# import cubic_spline
 
 import timeit
 from robot import Robot
@@ -35,11 +35,11 @@ class FSM(object):
     # main code
     def __init__(self, robot):
         self.robot = robot
-        self.machine = Machine(model=self, states=FSM.states, initial='path_planning')
+        self.machine = Machine(model=self, states=FSM.states, initial='lane_detection')
         self.machine.add_transition(trigger='find_path', source='path_planning', dest='traffic_light', before='stop_jetbot')
         self.machine.add_transition(trigger='green_light', source='traffic_light', dest='openloop_motion', before='stop_jetbot')
         self.machine.add_transition(trigger='pass_intersection', source='openloop_motion', dest='lane_detection')
-        self.machine.add_transition(trigger='stop_line', source='lane_detection', dest='path_planning', after='stopline_jetbot')
+        self.machine.add_transition(trigger='stop_line', source='lane_detection', dest='path_planning', after='stop_jetbot')
         self.machine.add_transition(trigger='detect_people', source='*', dest='avoid_people')
         self.machine.add_transition(trigger='avoid_success', source='avoid_people', dest='lane_detection', after='stop_jetbot')
         
@@ -48,11 +48,12 @@ class FSM(object):
         r = self.robot
         r.set_motors(0, 0)
         time.sleep(1)
+        print('stop_jetbot!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 
     def stopline_jetbot(self):
         r = self.robot
         r.set_motors(0.2, 0.192)
-        time.sleep(0.5)
+        time.sleep(0.7)
         r.set_motors(0,0)
         time.sleep(1)
         print('stopline_stop')
@@ -62,15 +63,16 @@ def show_state(fsm):
 
 robot = Robot()
 camera = cv2.VideoCapture(detection.gstreamer_pipeline(flip_method=0), cv2.CAP_GSTREAMER)
-file1path = '/home/jetbot/Capstone-Project/project/path planning/aruco_marker/aruco_param.npz'
-filepath =  '/home/jetbot/Capstone-Project/project/lane_following/calibration.npz'
-file = np.load(filepath)
+file1path = '/home/jetbot/Capstone-Project/project/path_planning/aruco_marker/aruco_param.npz'
 file1 = np.load(file1path)
+filepath =  '/home/jetbot/Capstone-Project/project/lane_following/calibration.npz'
+file2 = np.load(filepath)
+
 fsm = FSM(robot)
 # define parameter
 direction = None
 green_light = True
-current_id = 8
+current_id = 20
 id_distance = None
 detect_people = None
 people = 0
@@ -82,10 +84,9 @@ roi_lane = np.array([[0, 480], [640, 480], [640, 250], [0, 250]])
 dst_pts = np.float32([[0, 400], [400, 400], [400, 0], [0, 0]])
 M = cv2.getPerspectiveTransform(np.float32(roi_lane), dst_pts)
 Minv = inv(M)
-
 while cv2.getWindowProperty("frame", 0) >= 0:
     ret, frame = camera.read()
-    d = detection(frame, file)
+    d = detection(frame, file2)
     state = fsm.state
 
     # detect aruco
@@ -108,6 +109,7 @@ while cv2.getWindowProperty("frame", 0) >= 0:
             people += 1
     
     booll = [True, False]
+    stopcar = False
     n = random.randint(0, 1)
     # show current FSM state
     show_state(fsm)
@@ -119,7 +121,7 @@ while cv2.getWindowProperty("frame", 0) >= 0:
         smooth = True
 
         #     digital map preprocessing
-        img = cv2.flip(cv2.imread("map_v5.jpg"), 0)
+        img = cv2.flip(cv2.imread("digital_map.jpg"), 0)
         img[img > 128] = 255
         img[img <= 128] = 0
         m = np.asarray(img)
@@ -187,12 +189,12 @@ while cv2.getWindowProperty("frame", 0) >= 0:
     elif state == 'openloop_motion':
         print('-----------------------')
         print('start open loop motion....')
-        if dir == 'left':
+        if dir == 1:
             robot.set_motors(0.17,0.24)
             time.sleep(3.5)
             robot.set_motors(0, 0)
             print('turning left....')
-        elif dir == 'right':
+        elif dir == 2:
             robot.set_motors(0.19,0.24)
             time.sleep(0.5)
             robot.set_motors(0.3,0.13)
@@ -216,14 +218,16 @@ while cv2.getWindowProperty("frame", 0) >= 0:
     else:
         print('-----------------------')
         print('start lane detection....')
-        stop = False
-        stop = d.stop_line_detect(800)
+        stopcar = False
+        print('STOPCAR: ', stopcar)
+        stopcar = d.stop_line_detect(frame, 700)
 #         if id_distance is not None:
 #             if id_distance < 50:
 #                 stop = True
-        print('detect stop line: ', stop)
-        print('id idstance: ', id_distance)
-        if stop == True:
+        print('detect stop line: ', stopcar)
+        #print('id idstance: ', id_distance)
+        if stopcar == True:
+            stopcar = False
             fsm.stop_line()
         else:
             # lane tracking
@@ -243,14 +247,16 @@ while cv2.getWindowProperty("frame", 0) >= 0:
             else:
                 angle = -90 - angle
             
-            attitude_ctrl = PID.pid(1.5,0,0.2)
+            attitude_ctrl = PID.pid(1.05,0,0.5)
             # attitude control
             attitude_ctrl.cur = angle
             # attitude_ctrl.desire = 0
             attitude_ctrl.cal_err()
             r_mcd = attitude_ctrl.output()
             RPSR, RPSL = Pv.ctrl_mixer(r_mcd)
-            Pv.motor_ctrl(RPSR,RPSL)
+            left_V, right_V = Pv.motor_ctrl(RPSR,RPSL)
+            robot.set_motors(left_V, right_V)
+
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 camera.release()

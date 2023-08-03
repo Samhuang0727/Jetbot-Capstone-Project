@@ -29,6 +29,7 @@ Using the window sliding method to detect the lane lines and applying PID contro
 ### Camera Calibration
 
 In [camera calibration](https://github.com/Samhuang0727/Capstone-Project/tree/main/project/lane_following/calibration), using `calibration.py` to find chessboard corners with differnect angles and stored the camera parameters in `calibation.npz`.
+![chessboard](chessboard.PNG)
 
 ## Traffic Light Detection
 

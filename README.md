@@ -37,8 +37,8 @@ Detecting lane lines and drawing them on the screen using the *Windows Sliding M
 
 ### PID Control
 Utilizing the angle between the lane lines and the vehicle's centerline to determine the car's movement and turning direction, and then fine-tuning PID parameters to achieve this functionality.
-- `PID1.py`:Function of motor controls
-- `PID2.py`:Class of PID calculations and parameters setup
+- `PID_1.py`:Function of motor controls
+- `PID_2.py`:Class of PID calculations and parameters setup
 - `PID_Final.py`:Main program of lane following
 
 ## Traffic Light Detection
@@ -51,7 +51,14 @@ Using HOG to detect the human body and draw a bounding box on the screen to allo
 
 ## Path Planning
 
+### AruCo Marker Detection
+Storing [AruCo Marker information](https://github.com/Samhuang0727/Capstone-Project/tree/main/project/path_planning/aruco_marker), including its orientation and 2D position on the [digital map](https://github.com/Samhuang0727/Capstone-Project/blob/main/project/path_planning/digital_map.jpg) (assuming the size of digital map is 600*600), in `aruco_params.npz` for future retrieval and use in path planning. The position of AruCo Markers wil siginificantly affects the direction of path planning, more precise of AruCo Markers coordinates, more accurate the path planning can be.
+
+### Path Planning
 After recognizing the AruCO marker, determine the current relative position of the car on the map and use the A star algorithm to calculate the shortest path to the destination.
+
+- Demo
+[![path planning demo](https://img.istreetview.com/?id=wdVnkF0x&url=3cRltBdhUaYc2lJ275Ez4NhqjMmC+vaqAQ4m3zXbsrDDGm94YNcv67oTZnz++tszAvzfkVIt4pqoHECAo/NtovzaiQ7H2x538lpmXw==)](https://www.youtube.com/watch?v=RQ6fppEik1Q&ab_channel=%E9%BB%83%E9%83%81%E7%BF%94)
 
 ## Stopline Recognition
 

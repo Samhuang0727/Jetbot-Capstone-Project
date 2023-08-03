@@ -35,6 +35,12 @@ In [camera calibration](https://github.com/Samhuang0727/Capstone-Project/tree/ma
 ### Lane Detection
 Detecting lane lines and drawing them on the screen using the *Windows Sliding Method* and *image processing* such as Gaussian blur, Canny and Hough algorithm. If only one side of the lane line is visible on the screen, it can also be determined using a computational approach, you can find more detailed code in `pid_final.py`.
 
+### PID Control
+Utilizing the angle between the lane lines and the vehicle's centerline to determine the car's movement and turning direction, and then fine-tuning PID parameters to achieve this functionality.
+- `PID1.py`:Function of motor controls
+- `PID2.py`:Class of PID calculations and parameters setup
+- `PID_Final.py`:Main program of lane following
+
 ## Traffic Light Detection
 
 Using HSV to determine the color of traffic lights.

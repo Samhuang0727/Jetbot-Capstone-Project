@@ -4,17 +4,17 @@
 
 This is a project developed from the Aerospace Engineering Practice Course of the Department of Aeronautic and Astronautic Engineering at National Cheng Kung University. Our goal is to build a self-driving car, which includes applications such as:
 
-- **traffic light detection**
-- **huamn detection**
+- **Traffic light detection**
+- **Huamn detection**
   - HOG
-- **lane following**
+- **Lane following**
   - sliding windows method
   - camera calibration
   - PID control
-- **path planning**
+- **Path planning**
   - Astar
   - AruCo marker detection
-- **stopline recognition**
+- **Stopline recognition**
 
 Environment required:
 
@@ -28,9 +28,12 @@ Using the window sliding method to detect the lane lines and applying PID contro
 
 ### Camera Calibration
 
-In [camera calibration](https://github.com/Samhuang0727/Capstone-Project/tree/main/project/lane_following/calibration), using `calibration.py` to find chessboard corners with differnect angles and store the camera parameters in `calibation.npz`.We will oftenly use these parameters in further work.
+In [camera calibration](https://github.com/Samhuang0727/Capstone-Project/tree/main/project/lane_following/calibration), using `calibration.py` to find chessboard corners with differnect angles and store the camera parameters in `calibation.npz`.We will oftenly use these parameters in further work. Figure below is the chessboard using for calibration and the calibration process.
 ![chessboard](chessboard.PNG)
 ![Calibration_process](https://github.com/Samhuang0727/Capstone-Project/blob/main/project/lane_following/calibration/img.jpg)
+
+### Lane Detection
+Detecting lane lines and drawing them on the screen using the *Windows Sliding Method* and *image processing* such as Gaussian blur, Canny and Hough algorithm. If only one side of the lane line is visible on the screen, it can also be determined using a computational approach, you can find more detailed code in `pid_final.py`.
 
 ## Traffic Light Detection
 

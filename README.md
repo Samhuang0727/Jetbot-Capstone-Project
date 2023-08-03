@@ -58,7 +58,7 @@ Storing [AruCo Marker information](https://github.com/Samhuang0727/Capstone-Proj
 After recognizing the AruCO marker, determine the current relative position of the car on the map and use the A star algorithm to calculate the shortest path to the destination.
 
 - Demo
-[![path planning demo](https://img.istreetview.com/?id=wdVnkF0x&url=3cRltBdhUaYc2lJ275Ez4NhqjMmC+vaqAQ4m3zXbsrDDGm94YNcv67oTZnz++tszAvzfkVIt4pqoHECAo/NtovzaiQ7H2x538lpmXw==)](https://www.youtube.com/watch?v=RQ6fppEik1Q&ab_channel=%E9%BB%83%E9%83%81%E7%BF%94)
+[![path planning demo](path_planning.jpg)](https://www.youtube.com/watch?v=RQ6fppEik1Q&ab_channel=%E9%BB%83%E9%83%81%E7%BF%94)
 
 ## Stopline Recognition
 

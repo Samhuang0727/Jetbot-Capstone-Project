@@ -29,7 +29,7 @@ Using the window sliding method to detect the lane lines and applying PID contro
 ### Camera Calibration
 
 In [camera calibration](https://github.com/Samhuang0727/Capstone-Project/tree/main/project/lane_following/calibration), using `calibration.py` to find chessboard corners with differnect angles and store the camera parameters in `calibation.npz`.We will oftenly use these parameters in further work. Figure below is the chessboard using for calibration and the calibration process.
-![chessboard](chessboard.PNG)
+![chessboard](./markdown/chessboard.PNG)
 ![Calibration_process](https://github.com/Samhuang0727/Capstone-Project/blob/main/project/lane_following/calibration/img.jpg)
 
 ### Lane Detection
@@ -58,7 +58,7 @@ Storing [AruCo Marker information](https://github.com/Samhuang0727/Capstone-Proj
 After recognizing the AruCO marker, determine the current relative position of the car on the map and use the A star algorithm to calculate the shortest path to the destination.
 
 - Demo
-[![path planning demo](path_planning.jpg)](https://www.youtube.com/watch?v=RQ6fppEik1Q&ab_channel=%E9%BB%83%E9%83%81%E7%BF%94)
+[![path planning demo](./markdown/path_planning.jpg)](https://www.youtube.com/watch?v=RQ6fppEik1Q&ab_channel=%E9%BB%83%E9%83%81%E7%BF%94)
 
 ## Stopline Recognition
 

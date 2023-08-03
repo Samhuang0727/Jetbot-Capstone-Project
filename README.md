@@ -28,7 +28,7 @@ Using the window sliding method to detect the lane lines and applying PID contro
 
 ### Camera Calibration
 
-Firstly, we need to use `calibration.py` to perform camera calibration, obtain parameters such as ret, mtx, dist, rvecs, tvecs and store these parameters in `calibration.yaml`.
+In [camera calibration](https://github.com/Samhuang0727/Capstone-Project/tree/main/project/lane_following/calibration), using `calibration.py` to find chessboard corners with differnect angles and stored the camera parameters in `calibation.npz`.
 
 ## Traffic Light Detection
 

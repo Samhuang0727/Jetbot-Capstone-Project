@@ -48,7 +48,7 @@ Using HSV to determine the color of traffic lights.
 ## Human Detection and Avoidance
 
 Using HOG to detect the human body and draw a bounding box on the screen to allow the car to perform obstacle avoidance.
-
+****
 ## Path Planning
 
 ### AruCo Marker Detection
@@ -57,7 +57,7 @@ Storing [AruCo Marker information](https://github.com/Samhuang0727/Capstone-Proj
 ### Path Planning
 After recognizing the AruCO marker, determine the current relative position of the car on the map and use the A star algorithm to calculate the shortest path to the destination.
 
-- Demo
+- **Demo**
 [![path planning demo](./markdown/path_planning.jpg)](https://www.youtube.com/watch?v=RQ6fppEik1Q&ab_channel=%E9%BB%83%E9%83%81%E7%BF%94)
 
 ## Stopline Recognition

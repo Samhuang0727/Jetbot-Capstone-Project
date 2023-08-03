@@ -21,7 +21,7 @@ Environment required:
 - OpenCV 4
 - Ubuntu 18.04
 - Python 3
-
+****
 ## Lane Following
 
 Using the window sliding method to detect the lane lines and applying PID control parameters to ensure the vehicle stays within the lane.
@@ -40,11 +40,11 @@ Utilizing the angle between the lane lines and the vehicle's centerline to deter
 - `PID_1.py`:Function of motor controls
 - `PID_2.py`:Class of PID calculations and parameters setup
 - `PID_Final.py`:Main program of lane following
-
+****
 ## Traffic Light Detection
 
 Using HSV to determine the color of traffic lights.
-
+****
 ## Human Detection and Avoidance
 
 Using HOG to detect the human body and draw a bounding box on the screen to allow the car to perform obstacle avoidance.
@@ -59,7 +59,13 @@ After recognizing the AruCO marker, determine the current relative position of t
 
 - **Demo**
 [![path planning demo](./markdown/path_planning.jpg)](https://www.youtube.com/watch?v=RQ6fppEik1Q&ab_channel=%E9%BB%83%E9%83%81%E7%BF%94)
+- `path_planning.py`:main program of path planning
+- `cubic_spline.py`:visualize the path
+- `A_star_class.py`:Doing A star algorithm to determine shortest path
 
+****
 ## Stopline Recognition
-
 Using the size of the pixels and color recognition of the stop line on the frame to perform stop line recognition, and ensuring that the car stops before the stop line.
+- **Demo**
+[![stopline recognition demo](./markdown/stopline.jpg)](https://www.youtube.com/shorts/XpivvpqRY00)
+

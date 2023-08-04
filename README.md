@@ -48,6 +48,8 @@ Using HSV to determine the color of traffic lights.
 ## Human Detection and Avoidance
 
 Using HOG to detect the human body and draw a bounding box on the screen to allow the car to perform obstacle avoidance.
+- **Demo**
+[![pedestrian avoidance demo](./markdown/pa.jpg)](https://www.youtube.com/shorts/oKyg_K-yR6M)
 ****
 ## Path Planning
 
@@ -72,5 +74,7 @@ Using the size of the pixels and color recognition of the stop line on the frame
 ## Finite State Machine
 Using the [Python Transition extension](https://github.com/pytransitions/transitions) to implement a Finite State Machine, with an initial configuration of five states: `path_planning, traffic_light, openloop_motion, lane_detection, and avoid_people`. State transitions are achieved through trigger conditions. The state diagram is provided below.
 ![state](./markdown/state_process.jpg)
+- **`main.py`:main program of whole project and the FSM(finite state machine) object**
+- `function.py`:declaration of each function using Detection object
 
 

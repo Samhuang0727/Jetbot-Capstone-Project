@@ -43,7 +43,9 @@ Utilizing the angle between the lane lines and the vehicle's centerline to deter
 ****
 ## Traffic Light Detection
 
-Using HSV to determine the color of traffic lights.
+Using HSV to determine the color of traffic lights, with the conditions of color and the shape(usually circle).
+- **Demo**
+[![traffic light demo](./markdown/tld.jpg)](https://youtu.be/Hqocq0oeVxk)
 ****
 ## Human Detection and Avoidance
 
